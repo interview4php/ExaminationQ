@@ -1,0 +1,59 @@
+select top 10 id,username,count(1) as 发贴数 from members group by id,username  order by 发贴数 desc
+
+
+Select * From Table where id = 10unionSelect * From Table where id = 32unionSelect * From Table where id = 22unionSelect * From Table where id = 76unionSelect * From Table where id = 13
+
+按值传递：函数范围内对值的任何改变在函数外部
+都会被忽略
+按引用传递：函数范围内对值的任何改变在函数外
+部也能反映出这些修改
+优缺点：按值传递时，php 必须复制值。特别是对
+于大型的字符串和对象来说，这将会是一个代价很大的
+操作。按引用传递则不需要复制值，对于性能提高很有
+好处。
+
+
+__call()当调用不存在的方法时会自动调用的方法
+__autoload()在实例化一个尚未被定义的类是会自动调
+用次方法来加载类文件
+__set()当给未定义的变量赋值时会自动调用的方法
+__get()当获取未定义变量的值时会自动调用的方法
+__construct()构造方法，实例化类时自动调用的方法
+__destroy()销毁对象时自动调用的方法
+__unset()当对一个未定义变量调用unset()时自动调
+用的方法
+__isset()当对一个未定义变量调用isset()方法时自
+动调用的方法
+__clone()克隆一个对象
+__tostring()当输出一个对象时自动调用的方法
+
+
+
+
+$file = fopen("test.txt","w+");
+
+// 排它性的锁定 先锁上，写完，打开。
+if (flock($file,LOCK_EX))
+  {
+  fwrite($file,"Write something");
+  // release lock
+  flock($file,LOCK_UN);
+  }
+else
+  {
+  echo "Error locking file!";
+  }
+
+fclose($file);
+
+一般是在你要检查的代码开头记录一个时间，结尾记录一个时间。取差值
+
+eAccelerator,xcache是PHP缓存扩展；APC缓存是数据库缓存扩展
+
+
+新闻媒体注意细览页的性能优化，比如图片、结构，保持清爽；
+SNS注意交互、页面JS、ajxa、动态内容大小；
+严格控制大小、减少定向、压缩图片、降低CSS加载速度，利用好缓存，这是通的
+
+这个同步的意思是当JS代码加载到当前AJAX的时候会把页面里所有的代码停止加载，页面出去假死状态，当这个AJAX执行完毕后才会继续运行其他代码页面假死状态解除。 
+而异步则这个AJAX代码运行中的时候其他代码一样可以运行。 

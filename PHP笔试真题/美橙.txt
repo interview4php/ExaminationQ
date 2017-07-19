@@ -1,0 +1,127 @@
+1. 禁用COOKIE 后 SEESION 还能用吗?
+答：
+cookie是保存在本地的，而seesion是保存在服务器上的。所以两者没有直接的关系，禁用cookie后seesion依然可以用。
+ 
+2. 如何在PHP中定义常量？
+答：
+define (‘Newconstant’, 30);
+ 
+3.用PHP打印出一个月后的时间，打印格式是2016年12月12日22:21:21
+答：
+echo date(‘Y-m-d H:i:s’，strtotime(‘+1 month’));
+ 
+4. 请列出jQuery事件监听的函数，及对应的解除监听的函数。
+答：
+jQuery中提供了四种事件监听方式，分别是
+bind、live、delegate、on；
+对应的解除监听的函数分别是
+unbind、die、undelegate、off；
+ 
+ 
+5. 用js截取字符串abcdefg的efg
+答：
+var str = "abcdefg";
+if (/efg/.test(str)) {
+  var efg = str.substr(str.indexOf("efg"), 3);
+  alert(efg);
+}
+ 
+6. php抓取远程图片到本地,你会用什么函数?
+答：
+用file_get_contents函数
+ex：
+<?php
+  $img = file_get_contents('http://www.baidu.com/img/baidu_logo.gif');
+  file_put_contents('1.gif',$img);
+  echo '<img src="1.gif">';
+?>
+
+7. 使用php遍历目录输出目录及其下的所有文件
+答：
+function showDir( $filedir ) {  
+//打开目录  
+$dir = @ dir($filedir);  
+//列出目录中的文件  
+while (($file = $dir->read())!==false){  
+     if(is_dir($filedir."/".$file) AND ($file!=".") AND ($file!="..")) {  
+           showDir($filedir."/".$file);  
+      } else {  
+          echo "filename: " .$filedir."/".$file . "<br />";  
+      }  
+ }  
+$dir->close();  
+}  
+showDir(".");
+ 
+8. 已知关系模式:
+S (SNO,SNAME) 学生关系。SNO 为学号，SNAME 为姓名
+C (CNO,CNAME,CTEACHER) 课程关系。CNO 为课程号，CNAME 为课程名，CTEACHER 为任课教师
+SC(SNO,CNO,SCGRADE) 选课关系。SCGRADE 为成绩
+1. 找出没有选修过“李明”老师讲授课程的所有学生姓名
+--实现代码:
+SELECT SNAME FROM S
+WHERE NOT EXISTS(
+SELECT * FROM SC,C
+WHERE SC.CNO=C.CNO
+AND CNAME='李明'
+AND SC.SNO=S.SNO)
+2. 列出有二门以上(含两门)不及格课程的学生姓名及其平均成绩
+--实现代码:
+SELECT S.SNO,S.SNAME,AVG_SCGRADE=AVG(SC.SCGRADE)
+FROM S,SC,(
+SELECT SNO
+FROM SC
+WHERE SCGRADE<60
+GROUP BY SNO
+HAVING COUNT(DISTINCT CNO)>=2
+)A WHERE S.SNO=A.SNO AND SC.SNO=A.SNO
+GROUP BY S.SNO,S.SNAME
+3. 列出既学过“1”号课程，又学过“2”号课程的所有学生姓名
+--实现代码:
+SELECT S.SNO,S.SNAME
+FROM S,(
+SELECT SC.SNO
+FROM SC,C
+WHERE SC.CNO=C.CNO
+AND C.CNAME IN('1','2')
+GROUP BY SNO
+HAVING COUNT(DISTINCT CNO)=2
+)SC WHERE S.SNO=SC.SNO
+4. 列出“1”号课成绩比“2”号同学该门课成绩高的所有学生的学号
+--实现代码:
+SELECT S.SNO,S.SNAME
+FROM S,(
+SELECT SC1.SNO
+FROM SC SC1,C C1,SC SC2,C C2
+WHERE SC1.CNO=C1.CNO AND C1.NAME='1'
+AND SC2.CNO=C2.CNO AND C2.NAME='2'
+AND SC1.SCGRADE>SC2.SCGRADE
+)SC WHERE S.SNO=SC.SNO
+
+9. CSS 优先级原则和 优先级排序 class ,!important, tag(选择器) ,id 
+答：
+
+优先级就近原则, 内联样式表 > 嵌入样式表> 外部样式表. 
+同权重情况下样式定义最近者为准; 载入样式以最后载入的定位为准;
+优先级排序: !important >  id > class > tag  （important 比 内联优先级高,但内联比 id 要高。）
+
+10.求y和z的值是多少？
+<script type="text/javascript">
+var x = 1;
+var y = 0;
+var z = 0;
+function add(n){n=n+1;}
+y = add(x);
+function add(n){n=n+3;}
+z = add(x);
+</script>
+答：
+都为undefined，因为没有返回值。
+
+11.如何在 HTML5 页面中嵌入音频?
+答：
+HTML 5 包含嵌入音频文件的标准方式，支持的格式包括 MP3、Wav 和 Ogg：
+<audio controls> 
+  <source src="**.mp3" type="audio/mpeg"> 
+   Your browser does'nt support audio embedding feature. 
+</audio>
