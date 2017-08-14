@@ -1,0 +1,42 @@
+1.获取服务器的ip【REMORE_ADDR】和用户ip【SERVER_ADDR】
+2.封装js对象
+3.将array[array['phone'=>'13698789878'],array['phone'=>'13598765456']],变成array[array['phone'=>'136****9878'],array['phone'=>'135****5456']]
+4.
+CREATE TABLE student(
+sno VARCHAR(10) PRIMARY KEY,  --学号
+sname VARCHAR(20),            --姓名
+sage INT,                     --年龄
+ssex VARCHAR(5)                --性别
+);
+CREATE TABLE teacher(
+tno VARCHAR(10) PRIMARY KEY,  --教师号
+tname VARCHAR(20)             --姓名
+);               
+CREATE TABLE course(
+cno VARCHAR(10),        --课程号
+cname VARCHAR(20),      --课程名称
+tno VARCHAR(20),        --教师号
+CONSTRAINT pk_course PRIMARY KEY (cno,tno)
+);
+CREATE TABLE sc(
+sno VARCHAR(10), --学号
+cno VARCHAR(10), --课程号
+score DOUBLE,    --成绩
+CONSTRAINT pk_sc PRIMARY KEY (sno,cno)
+);
+以上四张表，
+a、查询“c001”课程比“c002”课程成绩高的所有学生的学号；
+b、查询平均成绩大于60 分的同学的学号和平均成绩；
+c、全部科目小于60分的同学的姓名
+
+5、快速排序
+6、遍历出所有文件夹和文件中的子文件
+7、session和cookie的区别
+8、有哪些索引，哪些情况下回影响索引？
+9、isset,empty,is_null分别代表什么意思？
+10、echo,print,print_r的区别？
+11、settimeout和setInterval分别是什么？怎样停止它们？
+12、include，required，include_once,required_once的区别？
+13、自我介绍一下（100个字）
+
+PS:注重基础，该公司做微信的小游戏，前端用的多数是原生代码，后端自己公司写了一个框架。对我们的商城模块不是很感兴趣，最好缓存那块，不要上来就用redis，memcache。
