@@ -1,0 +1,219 @@
+1.查看当前目录下对应的文件信息
+    > ls       //list列出当前目录下的文件信息
+    > ls -l  或 ll //list list以详细信息形式 列出当前目录下的文件信息
+    > ls -a    //list all 列出当前目录的全部文件(包括隐藏文件)
+    > ls -al   //以详细信息形式 列出当前目录的"全部"文件(包括隐藏文件)
+
+    > ls  目录 //查看指定目录的文件信息
+    > ls -li   //显示当前目录详细的文件信息，并显示“索引编号”
+2. 查看当前操作位置
+    > pwd    //查看当前操作位置
+
+3. 目录切换
+    > cd 目录
+    > cd ..   //向上级目录切换
+    > cd etc  //切换到etc目录
+
+    > cd      //切换到当前操作用户的家目录
+    > cd ~    //效果同上指令
+
+4. 用户切换
+    > su -       //切换为超级管理员root用户(账号和权限都是root)
+    > su - root  //与上边指令效果一直
+    > su root    //账号是root，权限是普通权限
+    > exit    //退回到之前的账号
+    > su  普通用户 //切到账号为具体普通用户
+
+    >$  普通用户操作
+    >#  root用户操作
+
+    //多次使用su指令会使得用户出现叠加效果
+    //需要输入多次exit指令退回到之前的用户
+    shuhua--->root--->shuhua--->root
+
+5. 查看当前用户是谁
+    > whoami    //查看正在操作用户信息
+    > who am i  //查看登录系统用户信息
+
+6. 操作窗口切换
+    ># init 3    //桌面模式切换到命名模式
+    ># init 5    //命名模式切换到桌面模式
+
+7. 目录操作
+    ① 创建目录 make directory
+    > mkdir  目录名称
+    > mkdir -p  newdir/newdir/newdir  (-p)  //递归方式创建多级目录
+    mkdir dir/dir/newdir  无需-p参数
+    mkdir -p dir/newdir/newdir  需要-p参数
+    规律：新的目录超过两个或以上就需要-p参数
+
+    ② 移动目录 move
+    > mv  dir1  dir2   //把dir1移动到dir2目录下
+    > mv  dir1/dir2  dir3  //dir2移动到dir3的下边
+    
+    ③ 改名字 
+    > mv  dir1  dir2  //把dir1的名字改为dir2
+    > mv  dir1/dir2  dir3/newdir  //dir2移动到dir3下并改名字为newdir
+
+    mv  dir1  dir2 
+    dir2是存在的目录---->就是移动操作
+        不存在的目录---->就是改名字操作
+    本质：mv是“移动、改名字”的合并指令
+    
+    > mv dir1  dir2         //dir1移动到dir2下并改名字为原名
+    > mv dir1  dir2/newdir  //dir1移动到dir2下并改名字为newdir
+    > mv dir1/dir2  dir3/dir4  //dir2移动到dir4下并改名字为原名
+
+    ④. 复制目录copy
+    > cp  file  dir      //把file文件复制到dir目录里边
+    > cp  dir1  dir2 -R  //recursive递归复制，复制目录设置统一参数-R
+    > cp  dir1/dir2  dir3  -R //dir2复制到dir3下一份
+    > cp (-R) filename  dir/newname  //filename文件复制到dir下并改名字为newname
+
+    ⑤ 删除文件 remove directory/file
+    > rm  filename  //删除文件
+    > rm  -r  dir   //recursive通过递归方式删除一个目录
+    > rm  -rf  filename  //force 递归、强制删除任何文件
+    > rm  -rf  /    //kill you by yourself
+    > rmdir  dir    //删除目录,删除单级目录
+
+8. 文件操作
+    ① 查看内容
+    > cat  file    //输出文件内容到终端
+    > more file    //逐行向下查看文件内容，q退出，不支持回看
+    > less file    //上下左右 键查看文档的各个部分内容，支持回看 q退出
+    > head -n file  //查看文件的前n行内容
+    > tail -n file  //查看文件的最末尾n行内容
+    > wc  file      //计算文件行数
+    ② 创建文件
+    > touch  file   //创建一个新文件
+    > touch  dir/file  //给指定目录创建一个新文件
+
+    ③ 给文件追加内容
+    > echo 内容 >  file   //把内容追加到指定文件file里边
+                          //覆盖写方式追加
+    > echo 内容 >> file   //把内容追加到指定文件file里边
+                          //纯内容追加，原内容保留
+    文件不存在会自动创建
+
+9. 用户user操作(创建add、修改mod、删除del)
+    对应文件：/etc/passwd
+    ① 创建用户
+    ># useradd  username   
+    ># useradd  -g 组编号 username   //指定编号创建用户信息
+    ># useradd  -g 组编号  -u 用户编号   -d 家目录  username
+    //家目录 会自动创建
+    ② 修改用户
+    ># usermod  -g 组编号  username   //修改用户组编号
+    ># usermod  -g 组编号 -u  用户编号  -d 家目录  -l newname  username
+    //如果修改 家目录，需要手动创建之
+    ③ 删除用户
+    ># userdel  username      //只删除用户信息
+    ># userdel -r  username   //用户信息 和 家目录都删除
+
+
+10. 组group操作(创建、修改、删除)
+    对应文件：/etc/group
+    ① 创建组
+    > groupadd  groupname
+    ② 修改组
+    > groupmod -n  newname  groupname
+    ③ 删除组(该组下没有对应的用户信息才允许删除)
+    > groupdel groupname
+
+11. 查看指令的使用参数
+    > man 指令
+
+12. 权限设置
+    ① 字母相对方式设置权限
+    u主人权限，g同组权限，o其他组权限
+    +:增加权限
+    -:减少权限
+    > chmod u+rwx  filename  //给文件主人增加读、写、执行权限
+    > chmod u+x  filename  //给文件主人增加执行权限
+    > chmod u+rw  filename  //给文件主人增加读、写权限
+    > chmod u+r,g+wx,o+w  filename  //同时给文件的主人、同组用户、其他组用户增加权限
+    > chmod u+r,o+w  filename  //同时给文件的主人、其他组用户增加权限
+
+    > chmod u-wx  filename   //给文件主人删除写、执行权限
+    > chmod u-wx,o-rx  filename   //同时删除文件主人、其他组用户权限
+
+    > chmod u+rw,u-x,o+wx,g-x,g+w  filename  //增加、删除权限可以同时操作
+
+    ② 数字绝对方式设置权限
+    read:4
+    write:2
+    execute:1
+    
+    0:没有权限
+    1：执行
+    2：写
+    3：写、执行
+    4：读
+    5：读、执行
+    6：读、写
+    7：读、写、执行
+
+    chmod ABC filename      //A(user)B(group)C(other)代表三个数字
+    > chmod 764  filename   //主人(rwx)同组(rw)其他(r)
+
+    字母相对、数字绝对设置权限的选取：
+    ① 权限变动较少，使用字母相对方式
+    ② 权限变动较多，使用数字绝对方式
+
+13. 管道使用
+    > cat passwd | head -5   //利用管道查看passwd文件的前5行内容
+    > ls -l | wc     //查看当前目录全部的文件数目
+    > ls -l | head -6  //查看当前目录前5个文件信息
+    管道可以使用多个
+    > ls -l | head -6 | tail -5   //查看当前目录前5个文件信息,去除第一个文件
+    > ls -l | head -21 | tail -5  //查看当前目录第16-20个文件信息
+    > grep var passwd | head -3 //只显示有var字样的前3行内容
+    > grep var passwd | wc      //计算passwd文件里边有“多少行”出现var字样
+
+14. 查找内容
+    grep  内容  文件
+    在指定的文件里边查找需要的内容，会把内容所在行的信息都输出出来
+    > grep  login  ./passwd    //在passwd里边搜索login字样。会输出login所在行信息
+
+15. 文件查找指令
+    find  查找目录  选项 选项值 [ 选项 选项值 选项 选项值 ]
+    > find  /  -name  passwd   //在根目录下查找名字为passwd的文件
+                                (遍历系统的全部目录查找，效率极低)
+    > find  ./ -maxdepth 1 -name "*y*"    //查找名字里边有y字样的文件,查找深度为1层
+    > find  / -maxdepth 4 -mindepth 3 -name  passwd  //在3-4个目录层次之间 查找名字为passwd文件
+
+    > find  ./  -size 10c     //在当前目录查找文件大小为10字节
+    > find  ./  -size +4k     //查找大于4k大小的文件
+    > find  ./  -size -100c     //查找小于100字节大小的文件
+    
+    选项：
+        -name  通过文件名字查找
+        -maxdepth n  限制查找目录的最深层级
+        -mindepth n  限制查找目录的最浅层级
+        -size  通过文件大小查找
+            单位：
+               默认512字节
+               数字c 字节
+               数字k 千字节
+            范围：
+                + 大于某范围
+                - 小于某范围
+        -perm  通过文件权限查找
+            > find  ./  -perm 765
+        -type  通过文件类型(f文件/d目录)查找
+            > find  ./  -type f
+            > find  ./  -type d
+        -user   通过文件主人查找
+        -nouser 找到没有主人的文件 
+        -group  通过文件组别查找
+        -nogroup  找到没有组别的文件 
+
+16. 修改文件主人、组别
+    change owner
+    > chown 主人.组别  filename
+    > chown  主人  filename
+    > chown  .组别  filename
+    > chown -R 主人.组别 dir  //递归修改当前目录全部的文件的属组
+    > chmod -R 777  dirname   //递归方式设置文件权限
+    

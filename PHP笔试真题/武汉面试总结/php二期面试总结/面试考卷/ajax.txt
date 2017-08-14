@@ -1,0 +1,19 @@
+function show(page){
+    $.ajax({
+        url: '__CONTROLLER__/searchAjax',
+        type: 'GET',
+        data:{'page':page,'size' : _size},
+        dataType: 'json',
+        success:function(json){
+            // json是一个数组 里面的每一个元素是json数据
+            // 调用each方法的时候，json里面存在多少个json格式的数据，function被调用多少次
+            // index == key  el == val
+            var _html ="";
+            // foreach(json as index => el){}
+            $.each(json, function(index, el) {
+                _html += '<tr> <td class="num">' + el['id'] + '</td> <td class="name">' + el['username'] + '</td> <td class="name">' + el['nickname'] + '</td> <td class="process">' + el['email'] + '</td> <td class="node">' + js_date( el['reg_time']) + '</td> <td class="time">' + el['role_name'] + '</td> <td class="time">' + el['dept_name'] + '</td> <td class="operate"> <a href="/index.php/Admin/User/edt/id/' + el['id'] + '">编辑</a>&nbsp;&nbsp;<a href="/index.php/Admin/User/del/id/' + el['id'] + '">删除</a></td> </tr>';    
+                
+            });
+            $("#container").html(_html);
+            console.log(_html);
+}
