@@ -2,6 +2,10 @@
        该公司是做网页小游戏方面的，没有笔试，美女多，这家的人事会问你以前的公司是干什么的，还在一边做记录，估计会做调查。
        面试官很好，主要注重mysql这块，数据库的优化，会临时出题给你，考验你的随机应变的能力;
 
+多表连接方式有哪几种。
+订单表和用户表，要查询用户名，年龄和对应的订单金额（要手写出来）
+select a.name,a.age,b.order_price from user as a left jion order as b on a.userid=b.userid.
+
 
     
   
